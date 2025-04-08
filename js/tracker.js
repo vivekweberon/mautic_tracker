@@ -1,3 +1,4 @@
+console.log('tracker.js loaded');
 let gtmContainerID;
 
 if (GTM_CONFIG) {
@@ -43,8 +44,8 @@ let enableGoogleSignIn = true;
 let embeddedFormForKnownContacts = false;
 let embeddedFormSlotID;
 let unsubscribeEnabled = false;
-let unsubscribeInstruction = 'We hope you found this Useful. To unsubscribe,'
-let unsubscribeLinkText = 'Click here';
+let unsubscribeInstruction = 'We hope you found this useful. If not,'
+let unsubscribeLinkText = 'Click here to Unsubscribe.';
 let unsubscribeCollateral = '';
 let unsubscribeAnonymousUserMessage = 'Please introduce yourself by submitting the form given below inorder to Unsubscribe';
 let resubscribeInstruction = 'You have unsubscribed to this mailing. To re-subscribe,';
@@ -82,7 +83,7 @@ function addMauticFormHookForFeedbackForm(fName) {
     },
     onResponseEnd: function (response) {
       setTimeout(function () {
-        location.reload();
+        closeFeedbackForm();
       }, 2000);
     }
   };
@@ -118,6 +119,7 @@ function setMauticForms(FORMSET_NAME) {
   }
 
   if (MAUTIC_FORMSET[FORMSET_NAME]) {
+    console.log('Progressive Formset:');
     [progressiveFormName, progressiveFormID] = MAUTIC_FORMSET[FORMSET_NAME];
     setForm(progressiveFormName, progressiveFormID);
     addMauticFormHooksOnSubmitAndOnResponse(progressiveFormName);
@@ -229,6 +231,7 @@ function setPageTitle(){
 }
 
 function trackParametersOnPageLoad() {
+  console.log("Tracking parameters on page load", mt);
   trackPhoneCTA();
   if (pCode != undefined) {
     mt('send', 'pageview', { page_title: pageTitle, pcode: pCode, tags: cs }, { onerror: function () { logError(MT_ERROR) } });
@@ -255,6 +258,7 @@ function trackPhoneCTA() {
 }
 
 function reWriteURLS() {
+  console.log("reWriteURLs called");
   let href;
   let newHref;
   let params;
@@ -317,7 +321,7 @@ function displayPopupForm() {
     let body = document.getElementsByTagName("body")[0];
 
     lpClose.onclick = function () {
-      if ((localStorage.getItem(pageID + '-count') == undefined) || (Number(localStorage.getItem(pageID + '-count')) < nTimes)) {
+      if ((nTimes != 0) && ((localStorage.getItem(pageID + '-count') == undefined) || (Number(localStorage.getItem(pageID + '-count')) < nTimes))) {
         lpModal.style.display = "none";
         body.style.overflow = "auto";
         displayForm(lpModal);
@@ -685,7 +689,7 @@ function sendGTMEvents() {
 function onFeedbackFormSubmitEvent(){
   let pageTitle = 'Unsubscribed from '+ unsubscribeCollateral;
   sessionStorage.setItem('unsubscribed-'+currentPageName, 'yes');
-  mt('send', 'pageview', { page_title: pageTitle, tags: 'unsubscribe-'+unsubscribeCollateral.toLowerCase() }, { onerror: function () { logError(MT_ERROR) } });
+  mt('send', 'pageview', { page_title: pageTitle, tags: 'unsubscribe-'+unsubscribeCollateral.toLowerCase()+',-resubscribe-'+unsubscribeCollateral.toLowerCase() }, { onerror: function () { logError(MT_ERROR) } });
   addResubscribeLink();
 }
 
@@ -733,6 +737,17 @@ function displayFeedbackForm() {
 
   feedbackModal.style.display = "block";
   body.style.overflow = "hidden";
+}
+
+function closeFeedbackForm() {
+  let message = document.getElementById('mauticform_'+feedbackFormName+'_message');
+  if(message){
+    message.innerHTML = '';
+  }
+  let feedbackClose = document.getElementById("feedbackClose");
+  if(feedbackClose){
+    feedbackClose.click();
+  }
 }
 
 function userHasUnsubscribed(){
@@ -809,7 +824,7 @@ function resubscribe(e){
   e.preventDefault();
   let pageTitle = 'Re-Subscribed to '+ unsubscribeCollateral;
   sessionStorage.removeItem('unsubscribed-'+currentPageName);
-  mt('send', 'pageview', { page_title: pageTitle, tags: '-unsubscribe-'+unsubscribeCollateral.toLowerCase() }, { onerror: function () { logError(MT_ERROR) } });
+  mt('send', 'pageview', { page_title: pageTitle, tags: '-unsubscribe-'+unsubscribeCollateral.toLowerCase()+',resubscribe-'+unsubscribeCollateral.toLowerCase() }, { onerror: function () { logError(MT_ERROR) } });
   alert(resubscribeSuccessMessage);
   addUnsubscribeLink();
 }
@@ -1031,7 +1046,7 @@ function addDivider(formSlot) {
 }
 
 function addSecondaryFormHeader(formSlot) {
-  let header = '<div class="secondaryFormHeader"> Submit the form below: </div>';
+  let header = '<div class="secondaryFormHeader"> Complete the form below: </div>';
   addElementBeforeOrAfter(header);
 }
 

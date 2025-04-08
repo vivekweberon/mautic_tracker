@@ -1,3 +1,4 @@
+console.log("tracker-util.js loaded");
 const GTM_CONFIG = { 
   "www.eastbayinfo.com" : "GTM-MNS9VNQ",
   "weberealty.thrivebrokers.com" : "GTM-MNS9VNQ",
@@ -12,7 +13,8 @@ const USERID_PREFIX_CONFIG = {
   "leads-blue-weberealty.thrivebrokers.com" : "TC",
   "alpha.eastbayinfo.org" : "EC",
   "alpha.weberon.org" : "TC",
-  "my.reachpersona.com" : "TC"
+  "my.reachpersona.com" : "TC",
+  "my.serenest.services" : "TC"
 }
 
 const MAUTIC_SRC_CONFIG = {
@@ -31,7 +33,8 @@ const MAUTIC_SRC_CONFIG = {
   "alpha-ud.eastbayinfo.org" : "https://alpha.eastbayinfo.org",
   "alpha-bd.weberon.org" : "https://alpha.weberon.org",
   "realtor.reachpersona.com" : "https://my.reachpersona.com",
-  "ns-blue-weberealty.thrivebrokers.com" : "https://leads-blue-weberealty.thrivebrokers.com"	
+  "serenest.services" : "https://my.serenest.services",
+  "www.serenest.services" : "https://my.serenest.services"
 }
 
 const LP_CTA_LINK_DOMAIN_CONFIG = {
@@ -47,8 +50,7 @@ const LP_CTA_LINK_DOMAIN_CONFIG = {
   "developer9-weberealty.thrivebrokers.com" : "blue-weberealty.thrivebrokers.com",
   "developer12.eastbayinfo.com" : "blue-weberealty.thrivebrokers.com",
   "developer12-weberealty.thrivebrokers.com" : "blue-weberealty.thrivebrokers.com",
-  "alpha-ud.eastbayinfo.org" : "alpha-bd.eastbayinfo.org",
-  "ns-blue-weberealty.thrivebrokers.com" : "https://leads-blue-weberealty.thrivebrokers.com"	
+  "alpha-ud.eastbayinfo.org" : "alpha-bd.eastbayinfo.org"
 }
 
 let mauticSrc = "";
