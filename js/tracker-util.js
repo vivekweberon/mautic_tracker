@@ -34,7 +34,8 @@ const MAUTIC_SRC_CONFIG = {
   "alpha-bd.weberon.org" : "https://alpha.weberon.org",
   "realtor.reachpersona.com" : "https://my.reachpersona.com",
   "serenest.services" : "https://my.serenest.services",
-  "www.serenest.services" : "https://my.serenest.services"
+  "www.serenest.services" : "https://my.serenest.services",
+  "ns-blue-weberealty.thrivebrokers.com" : "https://leads-blue-weberealty.thrivebrokers.com"
 }
 
 const LP_CTA_LINK_DOMAIN_CONFIG = {
@@ -50,7 +51,8 @@ const LP_CTA_LINK_DOMAIN_CONFIG = {
   "developer9-weberealty.thrivebrokers.com" : "blue-weberealty.thrivebrokers.com",
   "developer12.eastbayinfo.com" : "blue-weberealty.thrivebrokers.com",
   "developer12-weberealty.thrivebrokers.com" : "blue-weberealty.thrivebrokers.com",
-  "alpha-ud.eastbayinfo.org" : "alpha-bd.eastbayinfo.org"
+  "alpha-ud.eastbayinfo.org" : "alpha-bd.eastbayinfo.org",
+  "ns-blue-weberealty.thrivebrokers.com" : "https://leads-blue-weberealty.thrivebrokers.com"
 }
 
 let mauticSrc = "";
