@@ -1,4 +1,3 @@
-console.log("tracker-util.js loaded");
 const GTM_CONFIG = { 
   "www.eastbayinfo.com" : "GTM-MNS9VNQ",
   "weberealty.thrivebrokers.com" : "GTM-MNS9VNQ",

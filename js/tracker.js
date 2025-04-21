@@ -1,4 +1,3 @@
-console.log('tracker.js loaded');
 let gtmContainerID;
 
 if (GTM_CONFIG) {
@@ -119,7 +118,6 @@ function setMauticForms(FORMSET_NAME) {
   }
 
   if (MAUTIC_FORMSET[FORMSET_NAME]) {
-    console.log('Progressive Formset:');
     [progressiveFormName, progressiveFormID] = MAUTIC_FORMSET[FORMSET_NAME];
     setForm(progressiveFormName, progressiveFormID);
     addMauticFormHooksOnSubmitAndOnResponse(progressiveFormName);
@@ -231,7 +229,6 @@ function setPageTitle(){
 }
 
 function trackParametersOnPageLoad() {
-  console.log("Tracking parameters on page load", mt);
   trackPhoneCTA();
   if (pCode != undefined) {
     mt('send', 'pageview', { page_title: pageTitle, pcode: pCode, tags: cs }, { onerror: function () { logError(MT_ERROR) } });
@@ -258,7 +255,6 @@ function trackPhoneCTA() {
 }
 
 function reWriteURLS() {
-  console.log("reWriteURLs called");
   let href;
   let newHref;
   let params;
