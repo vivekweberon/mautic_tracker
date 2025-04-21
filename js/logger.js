@@ -10,6 +10,7 @@ if(_rollbarConfig){
 
 function logResourceLoadError(ref) {
   let err = "Error loading: '"+ (ref.src || ref.href) +"'";
+  console.log("Rollbar error", err)
   if(window.Rollbar){
     Rollbar.error(err);
     console.log(err);
