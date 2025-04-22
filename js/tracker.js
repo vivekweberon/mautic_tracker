@@ -470,12 +470,7 @@ function replaceForm(rFormName, rFormID) {
 function setCurrentPage(formName){
   let currentPage = document.getElementById("mauticform_input_" + formName + "_currentpage");
   if(currentPage){
-    let pageID = getPageID();
-    if(pageID){
-      currentPage.value = (currentPageName == pageID)? currentPageName : currentPageName+"/?id="+pageID;
-    }else{
-      currentPage.value = currentPageName; 
-    }
+    currentPage.value = currentPageName; 
   }
 }
 
