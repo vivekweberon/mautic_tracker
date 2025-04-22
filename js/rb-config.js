@@ -23,6 +23,7 @@ var _rollbarConfig = {
   accessToken: '3a9451ec1ecb4f85876a84204843e1fe',
   captureUncaught: true,
   captureUnhandledRejections: true,
+  async: false,
   retryInterval: 5000,
   autoInstrument: {
     network: true,
