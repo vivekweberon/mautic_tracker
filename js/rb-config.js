@@ -11,8 +11,7 @@ const ROLLBAR_CONFIG = {
   "developer9-weberealty.thrivebrokers.com" : "Developer9",
   "developer12.eastbayinfo.com" : "Developer12",
   "developer12-weberealty.thrivebrokers.com" : "Developer12",
-  "realtor.reachpersona.com" : "Production-reachpersona",
-  "ns-blue-weberealty.thrivebrokers.com" : "POC"
+  "realtor.reachpersona.com" : "Production-reachpersona"
 }
 
 var _rollbarConfig = {

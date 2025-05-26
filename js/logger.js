@@ -8,12 +8,9 @@ if(_rollbarConfig){
 // End Rollbar Snippet
 
 function logResourceLoadError(ref) {
-  console.log("Resource load error: ", ref);
   let err = "Error loading: '"+ (ref.src || ref.href) +"'";
-  console.log("Rollbar error", err)
   if(window.Rollbar){
     Rollbar.error(err);
-    console.log(err);
   }else{
     console.log(err);
   }

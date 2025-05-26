@@ -9,6 +9,8 @@ if (GTM_CONFIG) {
     gtmScript.innerHTML = gtmCode;
     let head = document.getElementsByTagName('head')[0];
     head.prepend(gtmScript);
+  }else{
+    console.log("GTM is not configured for this domain");
   }
 }
 
@@ -32,7 +34,6 @@ let utmCampaign;
 let utmContent;
 let utmTerm;
 let cs;
-let pageTitle;
 let pCode;
 let currentPageName = getCurrentPageName();
 let FORMSETS;
@@ -193,7 +194,6 @@ function extractQueryParameters() {
   let params = getSearchParams(window.location.href);
   setUTMParameters(params);
   setCampaignSource();
-  setPageTitle();
   setPcode(params);
 }
 
@@ -217,8 +217,8 @@ function setPcode(params) {
   pCode = extractPcode(params["pcode"]);
 }
 
-function setPageTitle(){
-  pageTitle = '';
+function getPageTitle(){
+  let pageTitle = '';
   let title = document.querySelector("title");
   if((title)&&(title.textContent)){
     pageTitle = title.textContent
@@ -226,16 +226,19 @@ function setPageTitle(){
       pageTitle += ': '+cs;
     }
   }
+  return pageTitle;
 }
 
 function trackParametersOnPageLoad() {
   trackPhoneCTA();
-  if (pCode != undefined) {
-    mt('send', 'pageview', { page_title: pageTitle, pcode: pCode, tags: cs }, { onerror: function () { logError(MT_ERROR) } });
+  let options ={page_title: getPageTitle()};
+  if(pCode){
+    options.pcode = pCode;
   }
-  else {
-    mt('send', 'pageview', { page_title: pageTitle, tags: cs }, { onerror: function () { logError(MT_ERROR) } });
+  if(cs){
+    options.tags = cs;
   }
+  mt('send', 'pageview', options, { onerror: function () { logError(MT_ERROR) } });
 }
 
 function trackPhoneCTA() {
@@ -297,12 +300,10 @@ function isEndOfForm() {
 
 function isEndOfProgressiveForm() {
   let ret = false;
-  if(formName != 'pfhomewardboundlp'){
-    let email = document.getElementById("mauticform_input_" + formName + "_f_email");
-    let phone = document.getElementById("mauticform_input_" + formName + "_f_phone");
-    let fullname = document.getElementById("mauticform_input_" + formName + "_fullname");
-    ret = ((email == null) && (phone == null) && (fullname == null));
-  }
+  let email = document.getElementById("mauticform_input_" + formName + "_f_email");
+  let phone = document.getElementById("mauticform_input_" + formName + "_f_phone");
+  let fullname = document.getElementById("mauticform_input_" + formName + "_fullname");
+  ret = ((email == null) && (phone == null) && (fullname == null));
   return ret;
 }
 
@@ -353,10 +354,12 @@ function displayPopupForm() {
 }
 
 function hideLastForm() {
-  let form = document.getElementById("mauticform_" + formName);
-  form.parentNode.removeChild(form);
-  if (formName == progressiveFormName) {
-    resetMauticSDK();
+  if(formName != 'pfhomewardboundlp'){
+    let form = document.getElementById("mauticform_" + formName);
+    form.parentNode.removeChild(form);
+    if (formName == progressiveFormName) {
+      resetMauticSDK();
+    }
   }
 }
 
@@ -1086,8 +1089,13 @@ function addLinkerParamToURLAndRedirect() {
     if ((href) && (domain)) {
       //Set domain
       let newHref = "https://" + domain + "/" + href;
-      newHref = newHref.includes('?') ? newHref + "&" : newHref + "?";
+      if(!gtmContainerID){
+        rpLink.setAttribute('href', newHref);
+        rpLink.click();
+      }
+      
       //Set linker param
+      newHref = newHref.includes('?') ? newHref + "&" : newHref + "?";
       let linkerParam, cID, sID;
       let interval = setInterval(function () {
         if ((window.ga) && (ga.getAll) && (window.dataLayer) && (window.ga4MeasurementID)) {
