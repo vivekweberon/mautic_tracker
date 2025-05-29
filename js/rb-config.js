@@ -15,7 +15,7 @@ const ROLLBAR_CONFIG = {
 }
 
 var _rollbarConfig = {
-  accessToken: '3a9451ec1ecb4f85876a84204843e1fe',
+  accessToken: 'a369216935fe434cb70adca043caf58dae1824f3f9c85ebab328f55fba0d366c13fb124a5c15f323a0f1f390bcb24c5b',
   captureUncaught: true,
   captureUnhandledRejections: true,
   retryInterval: 5000,
