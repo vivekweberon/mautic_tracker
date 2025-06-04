@@ -118,8 +118,9 @@ function setMauticForms(FORMSET_NAME) {
     FORMSET_NAME = getFormsetName(currentPageName, utmCampaign, FORMSETS);
   }
 
-  if (MAUTIC_FORMSET[FORMSET_NAME]) {
-    [progressiveFormName, progressiveFormID] = MAUTIC_FORMSET[FORMSET_NAME];
+  if (window.MAUTIC_FORM) {
+    progressiveFormName = window.MAUTIC_FORM.name;
+    progressiveFormID = window.MAUTIC_FORM.id;
     setForm(progressiveFormName, progressiveFormID);
     addMauticFormHooksOnSubmitAndOnResponse(progressiveFormName);
   }
