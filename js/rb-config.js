@@ -1,4 +1,3 @@
-console.log("rb-config.js loaded");
 const ROLLBAR_CONFIG = {
   "www.eastbayinfo.com" : "Production",
   "weberealty.thrivebrokers.com" : "Production",
@@ -15,35 +14,27 @@ const ROLLBAR_CONFIG = {
   "realtor.reachpersona.com" : "Production-reachpersona"
 }
 
-var _rollbarConfig = {
-  accessToken: 'a369216935fe434cb70adca043caf58dae1824f3f9c85ebab328f55fba0d366c13fb124a5c15f323a0f1f390bcb24c5b',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  retryInterval: 5000,
-  autoInstrument: {
-    network: true,
-    log: true,
-    dom: true,
-    navigation: true,
-    connectivity: true,
-    contentSecurityPolicy: true,
-    errorOnContentSecurityPolicy: true
-  }, 
-  payload: {
-      environment: ''
-  }
-};
+// var _rollbarConfig = {
+//   accessToken: 'a369216935fe434cb70adca043caf58dae1824f3f9c85ebab328f55fba0d366c13fb124a5c15f323a0f1f390bcb24c5b',
+//   captureUncaught: true,
+//   captureUnhandledRejections: true,
+//   retryInterval: 5000,
+//   autoInstrument: {
+//     network: true,
+//     log: true,
+//     dom: true,
+//     navigation: true,
+//     connectivity: true,
+//     contentSecurityPolicy: true,
+//     errorOnContentSecurityPolicy: true
+//   }, 
+//   payload: {
+//       environment: ''
+//   }
+// };
 
-// updateRollbarEnvironment();
-
-// if (typeof Rollbar !== 'undefined') {
-//   console.log("Rollbar is defined, initializing...");
-//   window.Rollbar = Rollbar.init(_rollbarConfig);
-// } else {
-//   console.error("Rollbar is NOT defined when trying to init");
-// }
-
-// updateRollbarPerson();
+updateRollbarEnvironment();
+updateRollbarPerson();
 
 function updateRollbarEnvironment(){
   if(_rollbarConfig){
@@ -74,15 +65,3 @@ function updateRollbarPerson(){
     console.log("Waiting for getUserIDFromCookie to be available...");
   }, 1000);
 }
-
-function waitForRollbarAndInit() {
-  if (window.Rollbar) {
-    updateRollbarEnvironment();
-    updateRollbarPerson();
-  } else {
-    console.log("Rollbar not loaded yet, retrying...");
-    setTimeout(waitForRollbarAndInit, 500);
-  }
-}
-
-waitForRollbarAndInit();
