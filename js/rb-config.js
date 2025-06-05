@@ -65,3 +65,5 @@ function updateRollbarPerson(){
     console.log("Waiting for getUserIDFromCookie to be available...");
   }, 1000);
 }
+
+console.log("Rollbar configuration initialized")
