@@ -1,3 +1,4 @@
+console.log("rb-config.js loaded");
 const ROLLBAR_CONFIG = {
   "www.eastbayinfo.com" : "Production",
   "weberealty.thrivebrokers.com" : "Production",
