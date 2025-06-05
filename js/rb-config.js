@@ -34,16 +34,16 @@ var _rollbarConfig = {
   }
 };
 
-updateRollbarEnvironment();
+// updateRollbarEnvironment();
 
-if (typeof Rollbar !== 'undefined') {
-  console.log("Rollbar is defined, initializing...");
-  window.Rollbar = Rollbar.init(_rollbarConfig);
-} else {
-  console.error("Rollbar is NOT defined when trying to init");
-}
+// if (typeof Rollbar !== 'undefined') {
+//   console.log("Rollbar is defined, initializing...");
+//   window.Rollbar = Rollbar.init(_rollbarConfig);
+// } else {
+//   console.error("Rollbar is NOT defined when trying to init");
+// }
 
-updateRollbarPerson();
+// updateRollbarPerson();
 
 function updateRollbarEnvironment(){
   if(_rollbarConfig){
@@ -52,43 +52,37 @@ function updateRollbarEnvironment(){
   }
 }
 
-// function updateRollbarPerson(){
-//   console.log("updateRollbarPerson called");
-//   let userID;
-//   let interval_Rollbar_UserID = setInterval(function(){
-//     if(window.getUserIDFromCookie){
-//       console.log("getUserIDFromCookie is available");
-//       userID = getUserIDFromCookie();
-//       if(userID){
-//         console.log("UserID found: " + userID);
-//         if(window.Rollbar){
-//           console.log("Configuring Rollbar with UserID: " + userID);
-//           Rollbar.configure({payload: {person: {id: userID}}});
-//         }else{
-//           console.log("Rollbar is not available to configure Person");
-//         }
-//         clearInterval(interval_Rollbar_UserID);
-//         console.log("Rollbar UserID configuration complete");
-//       }
-//     }
-//     console.log("Waiting for getUserIDFromCookie to be available...");
-//   }, 1000);
-// }
-
 function updateRollbarPerson(){
+  console.log("updateRollbarPerson called");
   let userID;
   let interval_Rollbar_UserID = setInterval(function(){
     if(window.getUserIDFromCookie){
+      console.log("getUserIDFromCookie is available");
       userID = getUserIDFromCookie();
       if(userID){
-        // Wait for Rollbar to be available
+        console.log("UserID found: " + userID);
         if(window.Rollbar){
+          console.log("Configuring Rollbar with UserID: " + userID);
           Rollbar.configure({payload: {person: {id: userID}}});
-          clearInterval(interval_Rollbar_UserID);
         }else{
-          console.log("Rollbar is not available yet, waiting...");
+          console.log("Rollbar is not available to configure Person");
         }
+        clearInterval(interval_Rollbar_UserID);
+        console.log("Rollbar UserID configuration complete");
       }
     }
+    console.log("Waiting for getUserIDFromCookie to be available...");
   }, 1000);
 }
+
+function waitForRollbarAndInit() {
+  if (window.Rollbar) {
+    updateRollbarEnvironment();
+    updateRollbarPerson();
+  } else {
+    console.log("Rollbar not loaded yet, retrying...");
+    setTimeout(waitForRollbarAndInit, 500);
+  }
+}
+
+waitForRollbarAndInit();
