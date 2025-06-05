@@ -31,7 +31,7 @@ var _rollbarConfig = {
   payload: {
       environment: ''
   },
-  async: false,
+  async: true,
 };
 
 updateRollbarEnvironment();
