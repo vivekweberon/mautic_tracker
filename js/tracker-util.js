@@ -108,12 +108,12 @@ function getQueryParameter(name){
   return value;
 }
 
-try {
-  throw new Error("Test error from tracker-util.js");
-} catch (err) {
-  if (window.Rollbar) {
-    window.Rollbar.error(err);
-  } else {
-    console.error("Rollbar not available", err);
-  }
-}
+// try {
+//   throw new Error("Test error from tracker-util.js");
+// } catch (err) {
+//   if (window.Rollbar) {
+//     window.Rollbar.error(err);
+//   } else {
+//     console.error("Rollbar not available", err);
+//   }
+// }
