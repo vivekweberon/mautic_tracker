@@ -35,6 +35,14 @@ var _rollbarConfig = {
 };
 
 updateRollbarEnvironment();
+
+if (typeof Rollbar !== 'undefined') {
+  console.log("Rollbar is defined, initializing...");
+  window.Rollbar = Rollbar.init(_rollbarConfig);
+} else {
+  console.error("Rollbar is NOT defined when trying to init");
+}
+
 updateRollbarPerson();
 
 function updateRollbarEnvironment(){
