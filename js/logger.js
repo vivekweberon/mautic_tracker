@@ -1,3 +1,4 @@
+console.log("Loading logger.js");
 const MT_ERROR = "Error invoking mt method";
 if(_rollbarConfig){
   _rollbarConfig.payload.user = getClientInfo();
