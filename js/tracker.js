@@ -1,3 +1,6 @@
+console.log("Tracker JS Loaded");
+console.log("MAUTIC_FORMSET: ", MAUTIC_FORMSET);
+console.log("Window MAUTIC_FORMSET: ", window.MAUTIC_FORMSET);
 let gtmContainerID;
 
 if (GTM_CONFIG) {
