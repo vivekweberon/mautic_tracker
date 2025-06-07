@@ -1240,5 +1240,5 @@ function setUnsubscribeAnonymousUserMessage(usAnonymousUserMessage){
   }
 }
 
-console.log("tracker.js",window.Rollbar)
-throw new Error("Mautic Tracker JS is not loaded. Please include mautic-tracker.js in your HTML file.");
+// console.log("tracker.js",window.Rollbar)
+// throw new Error("Mautic Tracker JS is not loaded. Please include mautic-tracker.js in your HTML file.");

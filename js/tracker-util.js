@@ -108,4 +108,4 @@ function getQueryParameter(name){
   return value;
 }
 
-let wspl = Vivek;
+// let wspl = Vivek;
