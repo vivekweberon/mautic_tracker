@@ -44,13 +44,21 @@ if(_rollbarConfig){
 //     return false;
 //   }
 
-// function logError(err){
-//   if(window.Rollbar){
-//     Rollbar.error(err);
-//   }else{
-//     console.log(err);
-//   }
-// }
+function logResourceLoadError(ref) {
+  console.log("logResourceLoadError called with ref - client", ref);
+  let err = "Error loading: '"+ (ref.target.src || ref.target.href) +"'";
+  Rollbar.error(err);
+  console.log(err);
+  return false;
+}
+
+function logError(err){
+  if(window.Rollbar){
+    Rollbar.error(err);
+  }else{
+    console.log(err);
+  }
+}
 
 function getClientInfo(){
   let client = {};
